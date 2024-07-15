@@ -224,7 +224,7 @@ public class ProductDAO extends DAO {
 		
 		
 		String sql = "INSERT INTO tbl_product_inven(pi_no, pd_no, pi_type, pi_cnt)";
-		sql += "VALUES ((SELECT NVL(MAX(TO_NUMBER(pi_no)), 0) FROM tbl_product_inven), ?, 'IN', ?)";
+		sql += "VALUES ((SELECT NVL(MAX(TO_NUMBER(pi_no)), 0) + 1 FROM tbl_product_inven), ?, 'IN', ?)";
 		conn = getConn();
 		try {
 			psmt = conn.prepareStatement(sql);
@@ -261,14 +261,14 @@ public class ProductDAO extends DAO {
 
 	// 입출고내역
 	public List<ProductVO> selectPutList() {
-		String sql = "SELECT";
-		sql += " (SELECT pd_name FROM tbl_product WHERE pd_no = pi.pd_no) as pd_name";
-		sql += " , pi.pi_type";
-		sql += " , pi.pi_cnt";
-		sql += " , creation_date";
-		sql += " FROM tbl_product_inven pi";
-		sql += " WHERE ROWNUM <= 10";
-		sql += " ORDER BY TO_NUMBER(pi_no) DESC";
+		String sql = "SELECT ";
+		sql += "    A.* ";
+		sql += "FROM ( ";
+		sql += "        SELECT ROW_NUMBER() OVER (ORDER BY TO_NUMBER(pi.pi_no) DESC) AS rn, (SELECT pd_name FROM tbl_product WHERE pd_no = pi.pd_no) as pd_name, pi.pd_no, pi.pi_no, pi.pi_type, pi.pi_cnt, pi.creation_date ";
+		sql += "        FROM tbl_product_inven pi";
+		sql += "        ORDER BY TO_NUMBER(pi.pi_no) DESC ";
+		sql += "    ) A ";
+		sql += "WHERE A.rn <= 10";
 		List<ProductVO> list = new ArrayList<>();
 		conn = getConn();
 		try {

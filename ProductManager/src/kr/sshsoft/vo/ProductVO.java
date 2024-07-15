@@ -39,9 +39,9 @@ public class ProductVO {
 		return "\t" + pdNo + "\t " + pdName + "  \t\t " + pdPrice + "원     \t\t " + pdCnt + "개";
 	}
 
-	// 간략하게 보여주기 위함
+	// 간략하게 보여주기 위함(piType == "IN" ? "입고" : "출고")
 	public String briefPutShow() {
-		return "\t" + pdName + "   \t\t " + (piType == "IN" ? "입고" : "출고") + " \t\t\t " + piCnt + "개"
+		return "\t" + pdName + "   \t\t " + (piType.equals("IN") ? "입고" : "출고") + " \t\t\t " + piCnt + "개 \t\t"
 				+ creationDate;
 	}
 

@@ -184,7 +184,7 @@ public class ProductControl {
 			System.out.print("\t수정할 상품가격 입력 > ");
 			pprice = sc.nextLine();
 			if (priceChkCnt < 2) {
-				if (Integer.parseInt(pprice) <= 0) {
+				if ((pprice == "" ? 0:Integer.parseInt(pprice)) <= 0) {
 					System.out.println("\t입력한 상품 가격이 0원 이하입니다. 다시 입력해주세요.");
 					priceChkCnt++;
 				} else {
