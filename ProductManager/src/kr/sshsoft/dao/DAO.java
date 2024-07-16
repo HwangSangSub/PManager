@@ -19,7 +19,7 @@ public class DAO {
 	public Connection getConn() {
 		// 1) Oracle JDBC Driver 자바라이브러리.
 		// 2) Connection 객체. 세션
-		String url = "jdbc:oracle:thin:@localhost:1521:xe";
+		String url = "jdbc:oracle:thin:@192.168.0.40:1521:xe";
 		String driver = "oracle.jdbc.driver.OracleDriver";
 		String user = "jsp";
 		String pass = "jsp";
