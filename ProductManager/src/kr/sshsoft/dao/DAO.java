@@ -28,7 +28,7 @@ public class DAO {
 			Class.forName(driver);
 			conn = DriverManager.getConnection(url, user, pass);
 		} catch (SQLException | ClassNotFoundException e) {
-			System.out.println("오라클 드라이버 없음.");
+			System.out.println("오라클 드라이버 없음."); 
 			e.printStackTrace();
 		}
 		return conn;
